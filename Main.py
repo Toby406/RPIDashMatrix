@@ -1,20 +1,24 @@
 import sys, signal, time
 from core import settings, display
-from apps import hello_world
+from apps import hello_app
 
 from PIL import Image
 def main():
     
     #setup apps
-    vertical_app_list = [hello_world.HelloWorld()]
+    vertical_app_list = [hello_app.HelloApp()]
     
     frame: Image = settings.blank_screen
     
-    #display loop
+    #main loop
     while (True):
-        if settings.update_display:
+        update_display: bool = vertical_app_list[settings.current_vertical_app_id].update()
+
+        if update_display:
+            if settings.debug:
+                print("Updating display")
             if settings.display_on:
-                frame = vertical_app_list[settings.current_vertical_app_id].run()
+                frame = vertical_app_list[settings.current_vertical_app_id].generate()
             else:
                 frame = settings.blank_screen
         display.matrix.SetImage(frame)
