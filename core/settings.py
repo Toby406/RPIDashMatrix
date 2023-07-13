@@ -54,10 +54,11 @@ current_vertical_app_id: int = configs.getint("USER", "init_app_id_v", fallback=
 
 
 #Global variables
-display_on = True
+display_on: bool = True
+update_display: bool = True
 
 #Print debug messages
-debug = True
+debug: bool = True
 
 #constants
 class InputStatus(Enum):

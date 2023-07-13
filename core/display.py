@@ -23,11 +23,8 @@ options.daemon = False
 options.show_refresh_rate = 1
 # options.pwm_lsb_nanoseconds = 80
 # options.limit_refresh_rate_hz = 150
-# options.chain_length = 1
-# options.parallel = 1
-
-
 options.brightness = settings.default_brightness
+
 # Enable if you want to rotate the display 180 degrees
 # options.pixel_mapper_config = "U-mapper;Rotate:180"
 

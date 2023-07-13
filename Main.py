@@ -12,10 +12,11 @@ def main():
     
     #display loop
     while (True):
-        if settings.display_on:
-            frame = vertical_app_list[settings.current_vertical_app_id].run()
-        else:
-            frame = settings.blank_screen
+        if settings.update_display:
+            if settings.display_on:
+                frame = vertical_app_list[settings.current_vertical_app_id].run()
+            else:
+                frame = settings.blank_screen
         display.matrix.SetImage(frame)
         time.sleep(0.1)
         
