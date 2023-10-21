@@ -1,5 +1,9 @@
 {
     "python.analysis.extraPaths": [
         "./rpi-rgb-led-matrix/bindings/python"
-    ]
+    ],
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    }
 }
