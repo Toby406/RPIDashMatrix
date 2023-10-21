@@ -1,5 +1,5 @@
 import sys, signal, time
-from core import settings, display
+from core import settings, display, controls
 from apps import hello_app
 
 from PIL import Image
@@ -12,8 +12,10 @@ def main():
     
     #main loop
     while (True):
+        #check if display needs to be updated
         update_display: bool = vertical_app_list[settings.current_vertical_app_id].update()
 
+        #update display
         if update_display:
             if settings.debug:
                 print("Updating display")
@@ -21,7 +23,11 @@ def main():
                 frame = vertical_app_list[settings.current_vertical_app_id].generate()
             else:
                 frame = settings.blank_screen
+        
+        #display frame
         display.matrix.SetImage(frame)
+        
+        #wait
         time.sleep(0.1)
         
 #Setup interrupt with Ctrl-C

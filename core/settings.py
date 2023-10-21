@@ -2,6 +2,7 @@ import configparser
 from enum import Enum
 import os
 from PIL import Image
+from dataclasses import dataclass
 
 # Set path to main directory
 current_path: str = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -53,8 +54,6 @@ current_horizontal_app_id: int = configs.getint("USER", "init_app_id", fallback=
 current_vertical_app_id: int = configs.getint("USER", "init_app_id_v", fallback=0)
 
 
-#Global variables
-display_on: bool = True
 
 #Print debug messages
 debug: bool = True
@@ -68,3 +67,10 @@ class InputStatus(Enum):
     LONG_PRESS = 5
     ENCODER_INCREASE = 6
     ENCODER_DECREASE = 7
+    
+#Global variables
+display_on: bool = True
+class input:
+    value: InputStatus = InputStatus.NOTHING
+    pressed: bool = False
+    horizontal: bool = False

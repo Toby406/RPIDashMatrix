@@ -20,7 +20,7 @@ options.gpio_slowdown = 3
 
 #other options
 options.daemon = False
-options.show_refresh_rate = 1
+options.show_refresh_rate = 0
 # options.pwm_lsb_nanoseconds = 80
 # options.limit_refresh_rate_hz = 150
 options.brightness = settings.default_brightness
