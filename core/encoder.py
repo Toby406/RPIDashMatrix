@@ -7,7 +7,7 @@ class Encoder:
         # referring to the pins by the "Broadcom SOC channel" number
         GPIO.setmode(GPIO.BCM)
         
-        # define the Encoder switch inputs
+        # define the Encoder switch Inputs
         self.leftPin: int = leftPin
         self.rightPin: int = rightPin
         
@@ -24,6 +24,7 @@ class Encoder:
         self.current_direction: str = ""
     
     def update(self, channel):
+        settings.input.changed = True
         # get current switch positions
         new_state: tuple[bool, bool] = (GPIO.input(self.leftPin), GPIO.input(self.rightPin))
         # compare current switch positions to the last known positions

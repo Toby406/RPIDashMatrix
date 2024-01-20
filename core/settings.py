@@ -48,6 +48,10 @@ artist_color: tuple[int, int, int] = (255, 255, 255)
 play_color: tuple[int, int, int] = (255, 255, 255)
 background_color: tuple[int, int, int] = (0, 0, 0)
 
+light_pink: tuple[int, int, int] = (255,219,218)
+dark_pink: tuple[int, int, int] = (219,127,142)
+white: tuple[int, int, int] = (230,255,255)
+
 # User preferences
 #initial app id
 current_horizontal_app_id: int = configs.getint("USER", "init_app_id", fallback=0)
@@ -70,7 +74,15 @@ class InputStatus(Enum):
     
 #Global variables
 display_on: bool = True
-class input:
+
+@dataclass()
+class InputData:
     value: InputStatus = InputStatus.NOTHING
-    pressed: bool = False
     horizontal: bool = False
+    held: bool = False
+    changed: bool = True
+
+input: InputData = InputData()
+
+
+vertical_app_list: list = []

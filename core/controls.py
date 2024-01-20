@@ -13,31 +13,51 @@ except:
             self.when_released = lambda : None
             
 #setup rotary encoder button
-enc_button: Button = Button(settings.enc_switch, pull_up=False, hold_time = 0.2)
+enc_button: Button = Button(settings.enc_switch, pull_up=False, bounce_time = 0.1)
 
 enc_button.when_pressed = lambda: enc_button_pressed()
 enc_button.when_released = lambda: enc_button_released()
-enc_button.when_held = lambda: long_press()
+enc_button.when_held = lambda : None
 
 press_time: float = time.time()
 release_time: float = time.time()
 
 def long_press():
-    # if settings.debug:
-    #     print("Held")
-    settings.input.value  = settings.InputStatus.LONG_PRESS
+    if settings.debug:
+        print("Held")
+    # settings.input.value  = settings.InputStatus.LONG_PRESS
+    settings.input.held = not settings.input.held
     
 def enc_button_pressed():
-    settings.input.pressed = True
+    settings.input.changed = True
+    
     # disable button callback
     enc_button.when_pressed = lambda : None
     
     # count more presses
-    start_time = time.time()
-    presses: int = 1
-    last_pressed: bool = True
-            
+    start_time: float = time.time()
+    presses: int = 0
+    last_pressed: bool = False
     
+    # count presses
+    while ((time.time() - start_time) < 0.3):
+        if(enc_button.is_pressed):
+            if(not last_pressed):
+                presses += 1
+                last_pressed = True
+                if settings.debug:
+                    print("Pressed")
+                time.sleep(0.15)
+                start_time = time.time()
+        else:
+            last_pressed = False
+            
+    # if button is still pressed, it was a long press
+    if enc_button.is_active:
+        long_press()
+        enc_button.when_pressed = lambda: enc_button_pressed() 
+        return
+
     if presses == 1:
         settings.input.value = settings.InputStatus.SINGLE_PRESS
     elif presses == 2:
@@ -57,6 +77,8 @@ def enc_button_pressed():
     
 def enc_button_released():
     settings.input.pressed = False
+    settings.input.changed = True
+    
 
     
 
@@ -68,11 +90,13 @@ tiltSwitch.when_pressed = lambda: tilt()
 tiltSwitch.when_released = lambda: tilt()
 def tilt():
     startTime = time.time()
-    while (time.time() - startTime < 0.1): # wait for ball to settle
+    while (time.time() - startTime < 0.2): # wait for ball to settle
         pass
-    # if settings.debug:
-    #     print("Tilt" + tiltSwitch.is_pressed.__str__())
+    if settings.debug:
+        pass
+        # print("Tilt" + tiltSwitch.is_pressed.__str__())
     settings.input.horizontal = tiltSwitch.is_pressed
+    settings.input.changed = True
 
 
 
