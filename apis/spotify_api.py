@@ -12,38 +12,39 @@ from core import settings
 # requests_cache.install_cache(cache_name='spotipy_cache', expire_after=1, filter_fn=checkID, use_memory=True)
 # requests_cache.clear()
 
+CACHE = '.auth'
+
 class SpotifyApi:
     def __init__(self, config):
         self.invalid = False
         self.resetCache = 0
-        if config is not None and 'Spotify' in config and 'client_id' in config['Spotify'] \
-            and 'client_secret' in config['Spotify'] and 'redirect_uri' in config['Spotify']:
-            
+
+        if 'Spotify' in config:
             client_id = config['Spotify']['client_id']
             client_secret = config['Spotify']['client_secret']
             redirect_uri = config['Spotify']['redirect_uri']
-            if client_id != "" and client_secret != "" and redirect_uri != "":
-                try:
-                    os.environ["SPOTIPY_CLIENT_ID"] = client_id
-                    os.environ["SPOTIPY_CLIENT_SECRET"] = client_secret
-                    os.environ["SPOTIPY_REDIRECT_URI"] = redirect_uri
 
+            if client_id and client_secret and redirect_uri:
+                try:
                     scope = "user-read-currently-playing, user-read-playback-state, user-modify-playback-state"
-                    self.auth_manager = spotipy.SpotifyOAuth(scope=scope)
-                    print(self.auth_manager.get_authorize_url())
+                    print("\n\n\n")
+                    self.auth_manager = spotipy.SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, cache_path=CACHE, open_browser=False)
+                    # print("Spotify Api:", self.auth_manager.get_authorize_url())
+                    print("\n\n\n")
+                    
                     self.sp = spotipy.Spotify(auth_manager=self.auth_manager, requests_timeout=10)
+                    self.track = None
                     self.isPlaying = False
                     self.track = self.sp.current_user_playing_track()
+
                     threading.Thread(None, self.updateCache).start()
+
                 except Exception as e:
                     print(e)
                     self.invalid = True
             else:
                 print("Spotify Api: Empty Spotify client id or secret")
                 self.invalid = True
-        else:
-            print("Spotify Api: Missing config parameters")
-            self.invalid = True
     
     def updateCache(self):
         while True:

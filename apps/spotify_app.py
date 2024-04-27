@@ -11,7 +11,7 @@ from io import BytesIO
 class SpotifyApp(base_app.BaseApp):
     def __init__(self):
         super().__init__()
-        self.spotify = spotify_api.SpotifyApi(settings.configs)
+        self.spotify = spotify_api.SpotifyApi(settings.keys)
         
         self.last_respone = None
         self.last_art_url = None
@@ -98,7 +98,7 @@ class SpotifyApp(base_app.BaseApp):
             rotatedFrame: Image = Image.new("RGB", (settings.canvas_width, settings.canvas_height), settings.background_color)
             rotatedFrame.paste(frame.rotate(90, expand=True), (0, -settings.canvas_height))
             rotatedFrame.paste(frame.rotate(90, expand=True), (settings.canvas_height, 0))
-            rotatedFrame.save('./lol.png', quality=95)
+            # rotatedFrame.save('./lol.png', quality=95)
             frame = rotatedFrame
         
         super().postprocessing(frame)

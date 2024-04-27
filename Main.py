@@ -3,8 +3,12 @@ from core import settings, display, controls
 from apps import hello_app, home_app, spotify_app as spo, bahn_app
 
 from PIL import Image
+import logging
+
 def main():
-    
+
+    logging.getLogger().setLevel(logging.INFO)
+
     #setup apps
     settings.vertical_app_list = [home_app.HomeApp(), spo.SpotifyApp(), bahn_app.BahnApp()]
     

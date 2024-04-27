@@ -15,9 +15,23 @@ print("Loading config from: " + config_path)
 configs = configparser.ConfigParser()
 parsed_configs: list[str] = configs.read(config_path)
 
+# Set path to key file
+key_path: str = current_path + "/keys.ini"
+print("Loading key from: " + key_path)
+
+# Load key file
+keys = configparser.ConfigParser()
+parsed_keys: list[str] = keys.read(key_path)
+
+
 # Check if config file was loaded
 if len(parsed_configs) == 0:
     print("Error: Config file not found.")
+    exit(1)
+
+# Check if key file was loaded
+if len(parsed_keys) == 0:
+    print("Error: Key file keys.ini not found.")
     exit(1)
 
 # Generate other paths from config file
