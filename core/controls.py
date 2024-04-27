@@ -29,6 +29,7 @@ def long_press():
     settings.input.held = not settings.input.held
     
 def enc_button_pressed():
+    settings.input.pressed = True
     settings.input.changed = True
     
     # disable button callback
@@ -90,7 +91,7 @@ tiltSwitch.when_pressed = lambda: tilt()
 tiltSwitch.when_released = lambda: tilt()
 def tilt():
     startTime = time.time()
-    while (time.time() - startTime < 0.2): # wait for ball to settle
+    while (time.time() - startTime < 0.4): # wait for ball to settle
         pass
     if settings.debug:
         pass

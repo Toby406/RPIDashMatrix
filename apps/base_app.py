@@ -24,4 +24,5 @@ class BaseApp():
         canvas :ImageDraw = ImageDraw.Draw(frame)
         #add white border if held
         if(settings.input.held):
-            canvas.rectangle([(0, 0), (settings.canvas_width - 1, settings.canvas_height - 1)], outline=(255, 255, 255))
+            # canvas.rectangle([(0, 0), (settings.canvas_width - 1, settings.canvas_height - 1)], outline=(255, 255, 255))
+            canvas.line([(0, settings.canvas_height - 1), (settings.canvas_width - 1, settings.canvas_height - 1)], fill=(255, 255, 255, 0))

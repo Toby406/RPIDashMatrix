@@ -8,8 +8,6 @@ class HomeApp(base_app.BaseApp):
     def __init__(self):
         super().__init__()
         self.bgs = {'sakura' : Image.open(settings.current_path + '/resources/backgrounds/sakura-bg.png').convert("RGB")
-                    # 'cloud' : Image.open(settings.current_path + '/apps/res/main_screen/cloud-bg-clear.png').convert("RGBA"),
-                    # 'forest' : Image.open(settings.current_path + '/apps/res/main_screen/forest-bg.png').convert("RGB")
                     }
         
         

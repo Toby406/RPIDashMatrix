@@ -5,7 +5,10 @@ from core import settings
 sys.path.append(settings.rgbmatrixlib_path)
 print("Loading rgbmatrix from: " + settings.rgbmatrixlib_path)
 
-from rgbmatrix import RGBMatrix, RGBMatrixOptions
+try:
+    from rgbmatrix import RGBMatrix, RGBMatrixOptions
+except:
+    from RGBMatrixEmulator import RGBMatrix, RGBMatrixOptions
 
 #setup display
 options: RGBMatrixOptions = RGBMatrixOptions()

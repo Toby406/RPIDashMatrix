@@ -74,6 +74,7 @@ class InputStatus(Enum):
     
 #Global variables
 display_on: bool = True
+input_disabled: bool = True
 
 @dataclass()
 class InputData:
@@ -81,8 +82,10 @@ class InputData:
     horizontal: bool = False
     held: bool = False
     changed: bool = True
+    pressed: bool = False
 
 input: InputData = InputData()
+
 
 
 vertical_app_list: list = []

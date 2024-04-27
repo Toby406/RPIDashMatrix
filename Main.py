@@ -1,12 +1,12 @@
 import sys, signal, time
 from core import settings, display, controls
-from apps import hello_app, home_app
+from apps import hello_app, home_app, spotify_app as spo, bahn_app
 
 from PIL import Image
 def main():
     
     #setup apps
-    settings.vertical_app_list = [home_app.HomeApp(),hello_app.HelloApp()]
+    settings.vertical_app_list = [home_app.HomeApp(), spo.SpotifyApp(), bahn_app.BahnApp()]
     
     frame: Image = settings.blank_screen
     
@@ -26,7 +26,7 @@ def main():
                 frame = settings.blank_screen
         
         #display frame
-        display.matrix.SetImage(frame)
+        display.matrix.SetImage(frame.convert("RGB"))
         
         settings.input.changed = False
         
